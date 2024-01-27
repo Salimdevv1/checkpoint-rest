@@ -18,10 +18,10 @@ export default function Home() {
     console.log(response)
 
   return (
-    <div className='text-white ml-64 p-4 '>
+    <div className='text-white md:lg:ml-64 p-4 '>
       <div className='flex items-center justify-between mx-4'>
         <h2 className='text-3xl font-bold'>Welcome to Dashboard</h2>
-        <button className='border-[4px] hover:bg-yellow-600 hover:text-white duration-300 py-3 px-10 rounded-lg font-bold text-lg border-yellow-600' ><i class="fa-solid fa-plus"></i> Add User</button>
+        <button className='border-[4px] hover:bg-yellow-600 hover:text-white duration-300 py-3 px-10 rounded-lg font-bold text-lg border-yellow-600' ><a href="/add"><i class="fa-solid fa-plus"></i> Add User</a></button>
       </div>
         <div className='mt-10'>
             <div className='flex  bg-gray-900 p-4 items-center justify-around '>
@@ -43,6 +43,7 @@ export default function Home() {
             )) : (
               <h2>No Users Found</h2>
             )}
+            <p className='pl-3 pt-3 font-bold text-lg'>{response.length} User(s) Found</p>
         </div>
 
     </div>

@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 export default function Edit() {
+    const navigate = useNavigate()
     const [id , setId] = useState('')
     const [newName , setNewName] = useState("")
     const [newEmail , setNewEmail] = useState("")
     const [newPhone , setNewPhone] = useState('')
-
-    useEffect(()=>{
-        const urlParams = new URL(window.location.href).searchParams;
-        const userID = urlParams.get('id');
-        axios.get(`http://localhost:5000/api/user/${userID}`).then(response =>setId(response.data._id)).catch(err=>console.error(err))
-    } , [])
-    console.log(id)
-    const updateUser = (id)=>{
+    const urlParams = new URL(window.location.href).searchParams;
+    const userID = urlParams.get('id');
+    const updateUser = (id) => {
         try {
-            axios.put("http://localhost:5000/api/user/65abda2ed09dc90134b8a0f1" , {newName , newEmail , newPhone}  ).then(response =>console.log(response)).catch(err=>console.error(err))
-
+          axios
+            .put(`http://localhost:5000/api/user/${userID}`, {
+              name: newName,
+              email: newEmail,
+              phone: newPhone,
+            })
+            .then((response) => console.log(response))
+            .catch((err) => console.error(err));
+            navigate('/') ;
+            window.location.reload() ;
         } catch (error) {
-            console.log(error)
+          console.log(error);
         }
-    }
+      };
   return (
     <div className='ml-64 p-4'>
         <h2 className='font-bold text-3xl text-white'>Update User</h2>
@@ -39,7 +44,6 @@ export default function Edit() {
             <div>
                 <button className='border-yellow-600 border-4 rounded-xl py-3 px-20 text-white mt-3' onClick={()=>updateUser(id)}>Update</button>
             </div>
-            
         </div>
     </div>
   )
